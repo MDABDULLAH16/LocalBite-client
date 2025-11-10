@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import   { use, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import GoogleButton from "../../components/Buttons/GoogleButton/GoogleButton";
@@ -7,32 +7,63 @@ import { AuthContext } from "../../contexts/AuthContext/AuthContext";
 import { toast } from "react-toastify";
 import { updateProfile } from "firebase/auth";
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 const Register = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const from = location?.state?.from?.pathname || "/";
   const [showPassword, setShowPassword] = useState(false);
   const { createUser } = use(AuthContext);
+
   const handleRegister = (e) => {
     e.preventDefault();
     const fullName = e.target.fullName.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log({ fullName, email, password });
+
     createUser(email, password)
       .then((result) => {
         const user = result.user;
-        if (user) {
-          toast.success("Register Successful!!");
-          navigate(from, { state: true });
-        }
 
-        updateProfile(result.user, { displayName: fullName })
-          .then({})
-          .catch((err) => toast.error(err.message));
+        updateProfile(user, { displayName: fullName })
+          .then(() => {
+            const newUser = {
+              name: user.displayName,
+              email: user.email,
+              image: user.photoURL || "",
+            };
+
+            fetch(`${BACKEND_URL}/users`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(newUser),
+            })
+              .then(async (res) => {
+                const data = await res.json();
+
+                if (res.status === 409) {
+                  toast.error("User already exists. Please login instead.");
+                  return;
+                }
+
+                if (res.ok && data.insertedId) {
+                  toast.success("Registration successful!");
+                  navigate(from, { replace: true });
+                } else {
+                  toast.success(data.message || "Something went wrong.");
+                   navigate(from, { replace: true });
+                }
+              })
+              .catch((err) => toast.error(err.message));
+          })
+          .catch((err) => toast.error("Profile update failed: " + err.message));
       })
-      .catch((err) => toast.error(err.message));
+      .catch((err) => toast.error("Registration failed: " + err.message));
   };
+ 
 
   return (
     <div className="min-h-screen flex flex-row items-center justify-center bg-base-200 p-8 ">
