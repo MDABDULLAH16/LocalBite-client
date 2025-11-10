@@ -21,7 +21,7 @@ const Login = () => {
           if (user) {
               setUser(user)
               toast.success('Login SuccessFul!!')
-              navigate(from,{state:true})
+              navigate(from,{replace:true})
           }
       }).catch(err=>toast.error(err.message))
   };

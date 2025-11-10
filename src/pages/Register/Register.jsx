@@ -54,7 +54,7 @@ const Register = () => {
                   navigate(from, { replace: true });
                 } else {
                   toast.success(data.message || "Something went wrong.");
-                   navigate(from, { replace: true });
+                  navigate(from, { replace: true });
                 }
               })
               .catch((err) => toast.error(err.message));

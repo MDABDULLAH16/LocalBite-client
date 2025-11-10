@@ -8,7 +8,7 @@ import Loader from "../Loader/Loader";
 
 const Navbar = () => {
   const { user, logOut, loading } = use(AuthContext);
-  console.log(user);
+  // console.log(user);
   
   const handleLogOut = () => {
     logOut()
@@ -19,7 +19,7 @@ const Navbar = () => {
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="/reviews">Reviews</NavLink>
+        <NavLink to="/reviews">All Reviews</NavLink>
       </li>
       <li>
         <NavLink to="/addReview">Add Review</NavLink>
@@ -65,9 +65,9 @@ const Navbar = () => {
             </div>
             <Link
               to="/"
-              className=" flex items-center justify-center gap-2 text-2xl font-bold font-poppins text-primary "
+              className=" flex items-center justify-center gap-2 lg:text-2xl lg:font-bold text-xl font-semibold font-poppins text-primary "
             >
-              <img className="w-12 h-12" src={logo} alt="logo" />
+              <img className="lg:w-12 lg:h-12 w-5 h-5" src={logo} alt="logo" />
               LocalBite
             </Link>
           </div>
