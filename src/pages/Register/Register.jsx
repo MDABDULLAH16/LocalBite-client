@@ -1,18 +1,37 @@
-import React, { useState } from "react";
-import { Link } from "react-router";
+import React, { use, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import GoogleButton from "../../components/Buttons/GoogleButton/GoogleButton";
 import register from "/register.gif";
+import { AuthContext } from "../../contexts/AuthContext/AuthContext";
+import { toast } from "react-toastify";
+import { updateProfile } from "firebase/auth";
 
 const Register = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location?.state?.from?.pathname || "/";
   const [showPassword, setShowPassword] = useState(false);
-
+  const { createUser } = use(AuthContext);
   const handleRegister = (e) => {
     e.preventDefault();
     const fullName = e.target.fullName.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
     console.log({ fullName, email, password });
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        if (user) {
+          toast.success("Register Successful!!");
+          navigate(from, { state: true });
+        }
+
+        updateProfile(result.user, { displayName: fullName })
+          .then({})
+          .catch((err) => toast.error(err.message));
+      })
+      .catch((err) => toast.error(err.message));
   };
 
   return (

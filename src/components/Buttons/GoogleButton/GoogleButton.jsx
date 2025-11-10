@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { use } from 'react';
 import { FcGoogle } from 'react-icons/fc';
+import { AuthContext } from '../../../contexts/AuthContext/AuthContext';
+import { toast } from 'react-toastify';
 
 const GoogleButton = () => {
+  const { signInWithGoogle } = use(AuthContext);
+
     const handleGoogleSignIn = () => {
-      console.log("Google Sign In clicked");
+      signInWithGoogle().then(result => {
+        const user = result.user;
+        if (user) {
+          toast.success('Login Successful!!')          
+        }
+      }).catch(err=>toast.error(err.message))
     };
     return (
       <button

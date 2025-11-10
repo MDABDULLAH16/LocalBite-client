@@ -1,10 +1,18 @@
-import React from "react";
+import React, { use } from "react";
 import { Link, NavLink } from "react-router";
 import Container from "../Container/Container";
 import logo from '/logo.png'
+import userImage from '/profile.png'
+import { AuthContext } from "../../contexts/AuthContext/AuthContext";
+import Loader from "../Loader/Loader";
 
 const Navbar = () => {
-  const user = null;
+  const { user, logOut, loading } = use(AuthContext);
+  console.log(user);
+  
+  const handleLogOut = () => {
+    logOut()
+  }
   const navLinks = (
     <nav className="flex flex-col gap-2 lg:flex-row">
       <li>
@@ -58,15 +66,17 @@ const Navbar = () => {
             <Link
               to="/"
               className=" flex items-center justify-center gap-2 text-2xl font-bold font-poppins text-primary "
-                      >
-                          <img className="w-12 h-12" src={logo} alt="logo"  />
+            >
+              <img className="w-12 h-12" src={logo} alt="logo" />
               LocalBite
             </Link>
           </div>
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1">{navLinks}</ul>
           </div>
-          {user ? (
+          {loading ? (
+            <Loader></Loader>
+          ) : user ? (
             <div className="dropdown dropdown-end navbar-end gap-4 relative">
               <div
                 tabIndex={0}
@@ -75,8 +85,9 @@ const Navbar = () => {
               >
                 <div className="w-10 rounded-full">
                   <img
-                    alt="Tailwind CSS Navbar component"
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                    alt="Profile"
+                    src={user.photoURL || userImage}
+                    referrerPolicy="no-referrer"
                   />
                 </div>
               </div>
@@ -95,7 +106,7 @@ const Navbar = () => {
                 <li>
                   <a>Settings</a>
                 </li>
-                <li>
+                <li onClick={handleLogOut}>
                   <Link>
                     <button>Logout</button>
                   </Link>
@@ -107,7 +118,9 @@ const Navbar = () => {
               to="/login"
               className="dropdown dropdown-end navbar-end gap-4 relative"
             >
-              <Link to='/login' className="btn btn-primary text-white">Login</Link>
+              <Link to="/login" className="btn btn-primary text-white">
+                Login
+              </Link>
             </div>
           )}
         </div>

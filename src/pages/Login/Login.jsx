@@ -1,16 +1,29 @@
-import React, { useState } from "react";
-import { Link } from "react-router";
+import React, { use, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
  import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import GoogleButton from "../../components/Buttons/GoogleButton/GoogleButton";
+import { AuthContext } from "../../contexts/AuthContext/AuthContext";
+import { toast } from "react-toastify";
 
 const Login = () => {
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location?.state?.from?.pathname || '/'
   const [showPassword, setShowPassword] = useState(false);
-
+    const { loginUser,setUser } = use(AuthContext);
   const handleLogin = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log({ email, password });
+      // console.log({ email, password });
+      loginUser(email, password).then(result => {
+          const user = result.user;
+          if (user) {
+              setUser(user)
+              toast.success('Login SuccessFul!!')
+              navigate(from,{state:true})
+          }
+      }).catch(err=>toast.error(err.message))
   };
 
  
