@@ -1,0 +1,119 @@
+import React from "react";
+import { Link, NavLink } from "react-router";
+import Container from "../Container/Container";
+import logo from '/logo.png'
+
+const Navbar = () => {
+  const user = null;
+  const navLinks = (
+    <nav className="flex flex-col gap-2 lg:flex-row">
+      <li>
+        <NavLink to="/">Home</NavLink>
+      </li>
+      <li>
+        <NavLink to="/reviews">Reviews</NavLink>
+      </li>
+      <li>
+        <NavLink to="/addReview">Add Review</NavLink>
+      </li>
+      <li>
+        <NavLink to="/dashboard">Dashboard</NavLink>
+      </li>
+    </nav>
+  );
+  return (
+    <div className="bg-base-100 shadow-sm">
+      <Container>
+        <div className="navbar  ">
+          <div className="navbar-start ">
+            <div className="dropdown">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost lg:hidden"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  {" "}
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h8m-8 6h16"
+                  />{" "}
+                </svg>
+              </div>
+              <ul
+                tabIndex="-1"
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              >
+                {navLinks}
+              </ul>
+            </div>
+            <Link
+              to="/"
+              className=" flex items-center justify-center gap-2 text-2xl font-bold font-poppins text-primary "
+                      >
+                          <img className="w-12 h-12" src={logo} alt="logo"  />
+              LocalBite
+            </Link>
+          </div>
+          <div className="navbar-center hidden lg:flex">
+            <ul className="menu menu-horizontal px-1">{navLinks}</ul>
+          </div>
+          {user ? (
+            <div className="dropdown dropdown-end navbar-end gap-4 relative">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="Tailwind CSS Navbar component"
+                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  />
+                </div>
+              </div>
+
+              {/* 👇 Move dropdown lower using absolute positioning */}
+              <ul
+                tabIndex="-1"
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box shadow absolute right-0 top-full mt-2 w-52 z-999"
+              >
+                <li>
+                  <a className="justify-between">
+                    Profile
+                    <span className="badge">New</span>
+                  </a>
+                </li>
+                <li>
+                  <a>Settings</a>
+                </li>
+                <li>
+                  <Link>
+                    <button>Logout</button>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <div
+              to="/login"
+              className="dropdown dropdown-end navbar-end gap-4 relative"
+            >
+              <Link to='/login' className="btn btn-primary text-white">Login</Link>
+            </div>
+          )}
+        </div>
+      </Container>
+    </div>
+  );
+};
+
+export default Navbar;
