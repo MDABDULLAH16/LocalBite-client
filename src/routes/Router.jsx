@@ -7,6 +7,7 @@ import PrivateRoute from "./PrivateRoute";
 import AddReview from "../pages/AddReview/AddReview";
 import Reviews from "../pages/Reviews/Reviews";
 import MyReviews from "../pages/MyReviews/MyReviews";
+import ReviewDetails from "../pages/ReviewDetails/ReviewDetails";
 
 const url = import.meta.env.VITE_BACKEND_URL;
 
@@ -22,7 +23,7 @@ export const router = createBrowserRouter([
         path: "reviews",
         loader: () => fetch(`${url}/reviews`),
         Component: Reviews,
-        hydrateFallbackElement: true
+        hydrateFallbackElement: true,
       },
       {
         path: "addReview",
@@ -37,6 +38,18 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyReviews />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "reviewDetails/:id",
+        loader: ({ params }) => {
+          const data = fetch(`${url}/reviews/${params.id}`);
+          return data;
+        },
+        element: (
+          <PrivateRoute>
+            <ReviewDetails />
           </PrivateRoute>
         ),
       },

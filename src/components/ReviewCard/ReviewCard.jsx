@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 const ReviewCard = ({ review }) => {
   const {
     foodName,
@@ -7,6 +9,7 @@ const ReviewCard = ({ review }) => {
     userName,
     ratings,
     userImage,
+    _id
   } = review;
 
   return (
@@ -46,9 +49,9 @@ const ReviewCard = ({ review }) => {
             </div>
             <p className="text-gray-700 font-medium text-sm">{userName}</p>
           </div>
-          <button className="bg-linear-to-r from-[#f82780] to-[#f82780] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition">
+          <Link to={`/reviewDetails/${_id}`} className="bg-linear-to-r from-[#f82780] to-[#f82780] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition">
             View Details
-          </button>
+          </Link>
         </div>
       </div>
     </div>

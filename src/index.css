@@ -30,3 +30,12 @@ li a:hover{
 body{
      font-family: "Inter", sans-serif;
 }
+.swiper-pagination-bullet {
+  background: #a3a3a3;
+  opacity: 0.6;
+}
+
+.swiper-pagination-bullet-active {
+  background: #16a34a !important; /* Green accent for LocalBite */
+  opacity: 1;
+}

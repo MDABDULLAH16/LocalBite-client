@@ -1,6 +1,6 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { Autoplay, Pagination,  } from "swiper/modules";
 
 // Import Swiper styles
 import "swiper/css";
@@ -68,7 +68,7 @@ const HeroSection = () => {
         pagination={{ clickable: true }}
         navigation={true}
         modules={[Autoplay, Pagination, ]}
-        className="mySwiper   overflow-hidden"
+        className="mySwiper  overflow-hidden"
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={index}>
