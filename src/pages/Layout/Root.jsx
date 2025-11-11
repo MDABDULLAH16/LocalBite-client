@@ -4,6 +4,7 @@ import { Outlet } from 'react-router';
 import { ToastContainer } from 'react-toastify';
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Footer from '../../components/Footer/Footer';
 
 const Root = () => {
    useEffect(() => {
@@ -18,6 +19,7 @@ const Root = () => {
       <div>
         <Navbar></Navbar>
         <Outlet></Outlet>
+        <Footer></Footer>
         <ToastContainer
           position="top-center"
           autoClose={1000}
