@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContext/AuthContext';
 import Loader from '../../components/Loader/Loader';
+import Swal from 'sweetalert2';
 
 
 const url = import.meta.env.VITE_BACKEND_URL;
 
 const MyReviews = () => {
     const { user } = useContext(AuthContext);
-    console.log(user.email);
+    // console.log(user.email);
     
     const [myReviews, setMyReviews] = useState([]);
 
@@ -22,10 +23,39 @@ const MyReviews = () => {
             
         }
     }, [])
-    console.log(myReviews);
-    const handleDelete = () => {
-        console.log('click d');
-        
+    // console.log(myReviews);
+  const handleDelete = (id) => {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+ fetch(`${url}/reviews/${id}`, {
+   method: "DELETE",
+ })
+   .then((res) => res.json())
+   .then((data) => {
+     if (data.deletedCount) {
+      Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success",
+          });
+     }
+     const remaining = myReviews.filter(r => r._id !== id);
+     setMyReviews(remaining)
+   });
+
+          
+        }
+      });
+        console.log('click d',id);
+     
     }
     
     return (
