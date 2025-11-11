@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {   useState } from "react";
 import { useLoaderData } from "react-router";
 import ReviewCard from "../../components/ReviewCard/ReviewCard";
 
@@ -10,7 +10,10 @@ const Reviews = () => {
 
   return (
     <div className="px-4 py-10 bg-gray-50 min-h-screen">
-      <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
+      <h2
+        data-aos="fade-up"
+        className="text-3xl font-bold text-center mb-8 text-gray-800"
+      >
         🍔 All Food Reviews
       </h2>
 

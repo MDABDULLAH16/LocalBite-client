@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import { Outlet } from 'react-router';
 import { ToastContainer } from 'react-toastify';
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Root = () => {
+   useEffect(() => {
+     AOS.init({
+       duration: 1000, // animation duration in ms
+       easing: "ease-in-out", // animation easing
+       once: false, // <--- set false to animate every time
+       mirror: true, // whether animation should happen only once
+     });
+   }, []);
     return (
       <div>
         <Navbar></Navbar>

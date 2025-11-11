@@ -1,9 +1,12 @@
 import React from 'react';
+import LatestReview from '../../components/LatestReview/LatestReview';
+import HeroSection from '../../components/HeroSection/HeroSection';
 
 const Home = () => {
     return (
         <div>
-            <h1>this is Home</h1>
+             <HeroSection></HeroSection>
+            <LatestReview></LatestReview>
         </div>
     );
 };

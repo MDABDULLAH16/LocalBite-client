@@ -48,7 +48,7 @@ const AddReview = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-base-200">
+    <div data-aos='zoom-in' className="min-h-screen flex items-center justify-center p-4 bg-base-200">
       <div className="card w-full max-w-5xl shadow-xl bg-base-100 p-6">
         <h2 className="text-3xl font-bold mb-6 text-center">Add Your Review</h2>
         <form

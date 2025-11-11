@@ -6,6 +6,7 @@ import Register from "../pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import AddReview from "../pages/AddReview/AddReview";
 import Reviews from "../pages/Reviews/Reviews";
+import MyReviews from "../pages/MyReviews/MyReviews";
 
 const url = import.meta.env.VITE_BACKEND_URL;
 
@@ -28,6 +29,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AddReview />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "myReviews",
+        element: (
+          <PrivateRoute>
+            <MyReviews />
           </PrivateRoute>
         ),
       },

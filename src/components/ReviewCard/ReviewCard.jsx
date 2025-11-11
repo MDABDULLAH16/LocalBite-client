@@ -10,7 +10,10 @@ const ReviewCard = ({ review }) => {
   } = review;
 
   return (
-    <div className="bg-white shadow-md rounded-2xl overflow-hidden transform hover:-translate-y-1 hover:shadow-xl transition duration-300 w-full max-w-sm mx-auto">
+    <div
+      data-aos="zoom-in-up"
+      className="bg-white shadow-md rounded-2xl overflow-hidden transform hover:-translate-y-1 hover:shadow-xl transition duration-300 w-full max-w-sm mx-auto"
+    >
       {/* Food Image */}
       <div className="relative">
         <img
