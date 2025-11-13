@@ -12,37 +12,39 @@ const Reviews = () => {
   const [reviews, setReviews] = useState(initialReviews);
   const [search, setSearch] = useState(""); // search input
   const [loading, setLoading] = useState(false);
-console.log(search);
+ 
 
   // Fetch reviews when search changes
-  useEffect(() => {
-    const fetchReviews = async () => {
-      setLoading(true);
-      try {
-        const res = await fetch(`${BACKEND_URL}/reviews?search=${search}`);
-        const data = await res.json();
-        setReviews(data);
-      } catch (error) {
-        console.error("Failed to fetch reviews", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+ useEffect(() => {
+   const fetchReviews = async () => {
+     setLoading(true);
+     try {
+       const res = await fetch(`${BACKEND_URL}/reviews?search=${search}`);
+       const data = await res.json();
+       // Ensure data is an array
+       setReviews(Array.isArray(data) ? data : []);
+     } catch (error) {
+       console.error("Failed to fetch reviews", error);
+       setReviews([]); // fallback
+     } finally {
+       setLoading(false);
+     }
+   };
 
-    // Add a small delay to avoid calling API on every keystroke
-    const delayDebounce = setTimeout(() => {
-      fetchReviews();
-    }, 300);
+   const delayDebounce = setTimeout(() => {
+     fetchReviews();
+   }, 300);
 
-    return () => clearTimeout(delayDebounce);
-  }, [search]);
+   return () => clearTimeout(delayDebounce);
+ }, [search]);
+
   return (
     <div className="px-4 py-10 bg-gray-50 min-h-screen">
       <h2
         data-aos="fade-up"
         className="text-3xl lg:text-5xl font-bold text-center mb-8 text-primary"
       >
-          All Food Reviews {reviews.length }
+        All Food Reviews {reviews.length}
       </h2>
 
       <div className="max-w-2xl mx-auto mb-8">
@@ -56,12 +58,16 @@ console.log(search);
       </div>
 
       {loading ? (
-       <Loader></Loader>
+        <Loader></Loader>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {reviews.map((review) => (
-            <ReviewCard key={review._id} review={review} />
-          ))}
+          {Array.isArray(reviews) ? (
+            reviews.map((review) => (
+              <ReviewCard key={review._id} review={review} />
+            ))
+          ) : (
+            <p className="text-center text-gray-500">No reviews found.</p>
+          )}
         </div>
       )}
     </div>
