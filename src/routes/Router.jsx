@@ -8,6 +8,7 @@ import AddReview from "../pages/AddReview/AddReview";
 import Reviews from "../pages/Reviews/Reviews";
 import MyReviews from "../pages/MyReviews/MyReviews";
 import ReviewDetails from "../pages/ReviewDetails/ReviewDetails";
+import ReviewEdit from "../pages/ReviewEdit/ReviewEdit";
 
 const url = import.meta.env.VITE_BACKEND_URL;
 
@@ -50,6 +51,18 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <ReviewDetails />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "reviewEdit/:id",
+        loader: ({ params }) => {
+          const data = fetch(`${url}/reviews/${params.id}`);
+          return data;
+        },
+        element: (
+          <PrivateRoute>
+            <ReviewEdit />
           </PrivateRoute>
         ),
       },

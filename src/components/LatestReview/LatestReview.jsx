@@ -20,7 +20,7 @@ const LatestReview = () => {
           {" "}
           Latest{" "}
           <span data-aos="zoom-up" className="text-primary">
-            Review
+            Review Post
           </span>
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8   mx-auto">

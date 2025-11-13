@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContext/AuthContext';
 import Loader from '../../components/Loader/Loader';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router';
 
 
 const url = import.meta.env.VITE_BACKEND_URL;
@@ -135,9 +136,9 @@ const MyReviews = () => {
 
                     {/* Actions */}
                     <td className="py-3  sm:px-4 space-y-2 sm:space-y-0 sm:space-x-2 flex flex-col  items-center justify-center lg:mt-2 sm:flex-row">
-                      <button className="px-2 sm:px-3 py-1 text-blue-600 border border-blue-600 rounded hover:bg-blue-50 transition text-xs sm:text-sm">
+                      <Link to ={`/reviewEdit/${item._id}`} className="px-2 sm:px-3 py-1 text-blue-600 border border-blue-600 rounded hover:bg-blue-50 transition text-xs sm:text-sm">
                         Edit
-                      </button>
+                      </Link>
                       <button
                         onClick={() => handleDelete(item._id)}
                         className="px-2 sm:px-3 py-1 text-red-500 border border-red-500 rounded hover:bg-red-50 transition text-xs sm:text-sm"
