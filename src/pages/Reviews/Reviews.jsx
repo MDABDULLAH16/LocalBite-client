@@ -40,9 +40,9 @@ console.log(search);
     <div className="px-4 py-10 bg-gray-50 min-h-screen">
       <h2
         data-aos="fade-up"
-        className="text-3xl font-bold text-center mb-8 text-gray-800"
+        className="text-3xl lg:text-5xl font-bold text-center mb-8 text-primary"
       >
-        🍔 All Food Reviews {reviews.length }
+          All Food Reviews {reviews.length }
       </h2>
 
       <div className="max-w-2xl mx-auto mb-8">
