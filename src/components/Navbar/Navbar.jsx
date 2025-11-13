@@ -1,18 +1,18 @@
 import React, { use } from "react";
 import { Link, NavLink } from "react-router";
 import Container from "../Container/Container";
-import logo from '/logo.png'
-import userImage from '/profile.png'
+import logo from "/logo.png";
+import userImage from "/profile.png";
 import { AuthContext } from "../../contexts/AuthContext/AuthContext";
 import Loader from "../Loader/Loader";
 
 const Navbar = () => {
   const { user, logOut, loading } = use(AuthContext);
   // console.log(user);
-  
+
   const handleLogOut = () => {
-    logOut()
-  }
+    logOut();
+  };
   const navLinks = (
     <nav className="flex flex-col gap-2 lg:flex-row">
       <li>
@@ -98,13 +98,17 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box shadow absolute right-0 top-full mt-2 w-52 z-999"
               >
                 <li>
-                  <a className="justify-between">
-                    Profile
-                    <span className="badge">New</span>
-                  </a>
+                  <Link to="/myReviews" className="justify-between">
+                    My Review
+                  </Link>
                 </li>
                 <li>
-                  <a>Settings</a>
+                  <Link to="/myFavorites" className="justify-between">
+                    My Favorites
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/addReview">Add Review</Link>
                 </li>
                 <li onClick={handleLogOut}>
                   <Link>

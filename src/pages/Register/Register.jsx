@@ -1,4 +1,4 @@
-import   { use, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import GoogleButton from "../../components/Buttons/GoogleButton/GoogleButton";
@@ -14,19 +14,44 @@ const Register = () => {
   const navigate = useNavigate();
   const from = location?.state?.from?.pathname || "/";
   const [showPassword, setShowPassword] = useState(false);
-  const { createUser } = use(AuthContext);
+  const { createUser } = useContext(AuthContext);
 
   const handleRegister = (e) => {
     e.preventDefault();
     const fullName = e.target.fullName.value;
+    const photoURL = e.target.photoURL.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
+    const confirmPassword = e.target.confirmPassword.value;
 
+    // password validation
+    if (password !== confirmPassword) {
+      return toast.error("Passwords do not match!");
+    }
+    if (password.length < 6) {
+      return toast.error("Password must be at least 6 characters long.");
+    }
+    if (!/[A-Z]/.test(password)) {
+      return toast.error(
+        "Password must include at least one uppercase letter."
+      );
+    }
+    if (!/[a-z]/.test(password)) {
+      return toast.error(
+        "Password must include at least one lowercase letter."
+      );
+    }
+
+    // create user in firebase
     createUser(email, password)
       .then((result) => {
         const user = result.user;
 
-        updateProfile(user, { displayName: fullName })
+        // update profile with name and photo
+        updateProfile(user, {
+          displayName: fullName,
+          photoURL: photoURL,
+        })
           .then(() => {
             const newUser = {
               name: user.displayName,
@@ -34,6 +59,7 @@ const Register = () => {
               image: user.photoURL || "",
             };
 
+            // Save user to DB
             fetch(`${BACKEND_URL}/users`, {
               method: "POST",
               headers: {
@@ -50,35 +76,36 @@ const Register = () => {
                 }
 
                 if (res.ok && data.insertedId) {
-                  toast.success("Registration successful!");
                   navigate(from, { replace: true });
                 } else {
-                  toast.success(data.message || "Something went wrong.");
                   navigate(from, { replace: true });
                 }
               })
-              .catch((err) => toast.error(err.message));
+              .catch((err) =>
+                toast.error("Server error: " + (err.message || "Unknown error"))
+              );
           })
           .catch((err) => toast.error("Profile update failed: " + err.message));
       })
-      .catch((err) => toast.error("Registration failed: " + err.message));
+      .catch((err) =>
+        toast.error("Registration failed: " + (err.message || "Unknown error"))
+      );
   };
- 
 
   return (
-    <div className="min-h-screen flex flex-row items-center justify-center bg-base-200 p-8 ">
-      <div className=" flex  lg:flex-row items-center justify-center    shadow-2xl bg-base-100 overflow-hidden rounded-lg">
+    <div className="min-h-screen flex flex-row items-center justify-center bg-base-200 p-8">
+      <div className="flex lg:flex-row items-center justify-center shadow-2xl bg-base-100 overflow-hidden rounded-lg">
         {/* Left Side - GIF */}
-        <div className=" hidden lg:block  p-4">
+        <div className="hidden lg:block p-4">
           <img
             src={register}
             alt="Register GIF"
-            className=" w-full  object-cover rounded-l-lg lg:rounded-l-lg rounded-t-lg lg:rounded-t-none"
+            className="w-full object-cover rounded-l-lg lg:rounded-l-lg rounded-t-lg lg:rounded-t-none"
           />
         </div>
 
         {/* Right Side - Form */}
-        <div className="  p-8 flex flex-col justify-center">
+        <div className="p-8 flex flex-col justify-center w-full max-w-md">
           <h2 className="text-3xl font-bold text-center mb-6">Register</h2>
 
           <form onSubmit={handleRegister} className="space-y-4">
@@ -93,6 +120,19 @@ const Register = () => {
                 placeholder="Enter your full name"
                 className="input input-bordered w-full"
                 required
+              />
+            </div>
+
+            {/* Photo URL */}
+            <div>
+              <label className="label">
+                <span className="label-text">Photo URL</span>
+              </label>
+              <input
+                type="text"
+                name="photoURL"
+                placeholder="Enter your photo URL"
+                className="input input-bordered w-full"
               />
             </div>
 
@@ -128,6 +168,20 @@ const Register = () => {
               >
                 {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
               </div>
+            </div>
+
+            {/* Confirm Password */}
+            <div>
+              <label className="label">
+                <span className="label-text">Confirm Password</span>
+              </label>
+              <input
+                type={showPassword ? "text" : "password"}
+                name="confirmPassword"
+                placeholder="Confirm your password"
+                className="input input-bordered w-full"
+                required
+              />
             </div>
 
             <button className="btn btn-primary w-full mt-2 hover:scale-105 transition-transform">

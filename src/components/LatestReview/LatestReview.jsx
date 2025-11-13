@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import ReviewCard from "../ReviewCard/ReviewCard";
+ 
 import Container from "../Container/Container";
 import { Link } from "react-router";
+import LatestReviewCard from "../LatestReviewCard/LatestReviewCard";
 const url = import.meta.env.VITE_BACKEND_URL;
 const LatestReview = () => {
   const [reviews, setReviews] = useState([]);
@@ -25,7 +26,7 @@ const LatestReview = () => {
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8   mx-auto">
           {reviews.map((review) => (
-            <ReviewCard key={review._id} review={review} />
+            <LatestReviewCard key={review._id} review={review} />
           ))}
         </div>
        <div className="flex items-center justify-center">
