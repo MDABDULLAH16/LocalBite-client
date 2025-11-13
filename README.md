@@ -1,16 +1,15 @@
-# React + Vite
+# LocalBite 🍴
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Live Site:** [https://localbite-e4052.web.app](https://localbite-e4052.web.app/)
 
-Currently, two official plugins are available:
+LocalBite is a modern web app for food lovers to explore local dishes, share reviews, and discover hidden gems in their city. Built with **React**, **TailwindCSS**, and modern libraries, it’s fast, interactive, and fully responsive.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+- **Delicious Photo Galleries:** Explore mouth-watering food images with smooth lightbox effects.
+- **Smooth Animations:** Scroll and interact with lively animations powered by **AOS** and **Framer Motion**.
+- **User Reviews & Feedback:** Leave reviews, favorite dishes, and get notifications with **SweetAlert2** and **react-toastify**.
+- **Responsive Design:** Optimized for all devices with **TailwindCSS** and **Swiper** sliders.
+- **user Side:** user can edit and delte review
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+LocalBite makes discovering local flavors fun, interactive, and community-driven.
