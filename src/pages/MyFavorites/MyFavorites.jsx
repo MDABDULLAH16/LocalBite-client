@@ -30,7 +30,7 @@ const MyFavorites = () => {
       });
   }, [user?.email]);
 
-  // ✅ Filter favorite reviews when data is ready
+  //  Filter favorite reviews when data is ready
   useEffect(() => {
     if (myFavorites.length > 0 && allReviews.length > 0) {
       const reviewIds = myFavorites.map((f) => f.reviewId);
@@ -41,8 +41,10 @@ const MyFavorites = () => {
     }
   }, [myFavorites, allReviews]);
 
-  // ✅ Handle remove from favorites
-  const handleRemoveFavorite = (id) => {
+  //  Handle remove from favorites
+    const handleRemoveFavorite = (id) => {
+      console.log(id);
+      
     Swal.fire({
       title: "Remove from favorites?",
       text: "Are you sure you want to remove this review from favorites?",
@@ -55,14 +57,16 @@ const MyFavorites = () => {
       if (result.isConfirmed) {
         fetch(`${url}/myFavorites/${id}`, { method: "DELETE" })
           .then((res) => res.json())
-          .then((data) => {
+            .then((data) => {
+              console.log(data);
+              
             if (data.deletedCount > 0) {
               Swal.fire(
                 "Removed!",
                 "Review removed from favorites.",
                 "success"
               );
-              const remaining = myFavorites.filter((fav) => fav._id !== id);
+              const remaining = myFavorites.filter((fav) => fav.reviewId !== id);
               setMyFavorites(remaining);
             }
           });
