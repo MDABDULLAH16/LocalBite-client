@@ -2,6 +2,7 @@ import React from "react";
 import LatestReview from "../../components/LatestReview/LatestReview";
 import HeroSection from "../../components/HeroSection/HeroSection";
 import Reels from "../../components/Reels/Reels";
+import TrendingDishes from "../../components/TrendingDishes/TrendingDishes";
 
 const Home = () => {
   return (
@@ -12,6 +13,7 @@ const Home = () => {
         <Reels></Reels>
       </div>
       <LatestReview></LatestReview>
+      <TrendingDishes></TrendingDishes>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination,Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import Container from "../Container/Container";
 
 const Reels = () => {
   const videos = [
@@ -81,36 +82,38 @@ const Reels = () => {
 
   return (
      
-      <section className="w-full  h-screen">
-         
-        <Swiper
-          direction="horizontal"
-          slidesPerView={1}
-          pagination={{ clickable: true }}
-          navigation={true}
-          modules={[Pagination, Navigation]}
-          onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-          className="h-full "
-        >
-          {videos.map((video, index) => (
-            <SwiperSlide key={video.id}>
-              <div className="relative w-full h-full">
-                <div
-                  id={`player-${index}`}
-                  className="w-full h-full"
-                  onClick={() => handleVideoClick(index)}
-                ></div>
-  
-                <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent flex flex-col justify-end items-center text-center pb-16 px-4 pointer-events-none">
-                  <p className="text-gray-200 text-lg md:text-xl drop-shadow-sm max-w-3xl">
-                    {video.subtitle}
-                  </p>
+      <Container>
+        <section className="w-full  h-screen">
+           
+          <Swiper
+            direction="horizontal"
+            slidesPerView={1}
+            pagination={{ clickable: true }}
+            navigation={true}
+            modules={[Pagination, Navigation]}
+            onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+            className="h-full "
+          >
+            {videos.map((video, index) => (
+              <SwiperSlide key={video.id}>
+                <div className="relative w-full h-full">
+                  <div
+                    id={`player-${index}`}
+                    className="w-full h-full"
+                    onClick={() => handleVideoClick(index)}
+                  ></div>
+    
+                  <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent flex flex-col justify-end items-center text-center pb-16 px-4 pointer-events-none">
+                    <p className="text-gray-200 text-lg md:text-xl drop-shadow-sm max-w-3xl">
+                      {video.subtitle}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </section>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </section>
+      </Container>
     
   );
 };

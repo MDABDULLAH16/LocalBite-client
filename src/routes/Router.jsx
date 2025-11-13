@@ -10,6 +10,7 @@ import MyReviews from "../pages/MyReviews/MyReviews";
 import ReviewDetails from "../pages/ReviewDetails/ReviewDetails";
 import ReviewEdit from "../pages/ReviewEdit/ReviewEdit";
 import MyFavorites from "../pages/MyFavorites/MyFavorites";
+import NotFound from "../pages/NotFound/NotFound";
 
 const url = import.meta.env.VITE_BACKEND_URL;
 
@@ -81,4 +82,8 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: '*',
+    Component:NotFound
+  }
 ]);
