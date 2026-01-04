@@ -24,7 +24,7 @@ const LatestReview = () => {
             Review Post
           </span>
         </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8   mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8   mx-auto">
           {reviews.map((review) => (
             <LatestReviewCard key={review._id} review={review} />
           ))}

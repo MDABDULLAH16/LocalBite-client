@@ -5,10 +5,13 @@ import logo from "/logo.png";
 import userImage from "/profile.png";
 import { AuthContext } from "../../contexts/AuthContext/AuthContext";
 import Loader from "../Loader/Loader";
+import useRole from "../../hooks/useRole";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
-  const { user, logOut, loading } = useContext(AuthContext);
-
+  const { user, logOut, loading } = useAuth();
+  const  role  = useRole();
+  
   const handleLogOut = async () => {
     await logOut();
   };

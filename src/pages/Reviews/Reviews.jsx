@@ -4,9 +4,7 @@ import { useLoaderData } from "react-router";
 import Loader from "../../components/Loader/Loader";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-console.log(BACKEND_URL);
-
-
+  
 const Reviews = () => {
   const initialReviews = useLoaderData();
   const [reviews, setReviews] = useState(initialReviews);

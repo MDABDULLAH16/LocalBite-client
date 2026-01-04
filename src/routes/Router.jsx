@@ -11,6 +11,7 @@ import ReviewDetails from "../pages/ReviewDetails/ReviewDetails";
 import ReviewEdit from "../pages/ReviewEdit/ReviewEdit";
 import MyFavorites from "../pages/MyFavorites/MyFavorites";
 import NotFound from "../pages/NotFound/NotFound";
+import DashboardLayout from "../pages/Layout/DashboardLayout";
 
 const url = import.meta.env.VITE_BACKEND_URL;
 
@@ -83,7 +84,15 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: '*',
-    Component:NotFound
-  }
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "*",
+    Component: NotFound,
+  },
 ]);
