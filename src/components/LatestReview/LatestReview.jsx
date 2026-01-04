@@ -10,7 +10,7 @@ const LatestReview = () => {
     fetch(`${url}/reviews`)
       .then((res) => res.json())
       .then((data) => {
-        const filter = data.slice(0, 6);
+        const filter = data.slice(0, 8);
         setReviews(filter);
       });
   }, []);

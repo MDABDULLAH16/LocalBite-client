@@ -1,3 +1,4 @@
+import { ArrowUpRight, Eye, Info } from "lucide-react";
 import { Link } from "react-router";
 
 const LatestReviewCard = ({ review }) => {
@@ -50,7 +51,7 @@ const LatestReviewCard = ({ review }) => {
             <p className="text-gray-700 font-medium text-sm">{userName}</p>
           </div>
           <Link to={`/reviewDetails/${_id}`} className="bg-linear-to-r from-[#f82780] to-[#f82780] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition">
-            View Details
+           <ArrowUpRight></ArrowUpRight>
           </Link>
         </div>
       </div>

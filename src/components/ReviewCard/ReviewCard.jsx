@@ -1,4 +1,4 @@
-import { Heart } from "lucide-react";
+import { ArrowUpRight, Heart } from "lucide-react";
 import { useContext, useState } from "react";
 import { Link } from "react-router";
 import { toast } from "react-toastify";
@@ -99,7 +99,7 @@ const ReviewCard = ({ review }) => {
             to={`/reviewDetails/${_id}`}
             className="bg-[#f82780] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition"
           >
-            View Details
+            <ArrowUpRight></ArrowUpRight>
           </Link>
         </div>
       </div>

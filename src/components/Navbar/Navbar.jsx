@@ -1,23 +1,24 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link, NavLink } from "react-router";
 import Container from "../Container/Container";
 import logo from "/logo.png";
 import userImage from "/profile.png";
-import { AuthContext } from "../../contexts/AuthContext/AuthContext";
 import Loader from "../Loader/Loader";
 import useRole from "../../hooks/useRole";
 import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
   const { user, logOut, loading } = useAuth();
-  const  role  = useRole();
-  
+  const role = useRole(); // Assuming useRole returns [role, isLoading]
+
   const handleLogOut = async () => {
     await logOut();
   };
 
+  // Dynamic Navigation Links Logic
   const navLinks = (
     <nav className="flex flex-col gap-2 lg:flex-row">
+      {/* COMMON LINKS */}
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
@@ -25,11 +26,32 @@ const Navbar = () => {
         <NavLink to="/reviews">All Reviews</NavLink>
       </li>
       <li>
-        <NavLink to="/addReview">Add Review</NavLink>
+        <NavLink to="/about-us">About Us</NavLink>
       </li>
-      <li>
-        <NavLink to="/myReviews">My Reviews</NavLink>
-      </li>
+
+      {/* ADMIN ONLY LINKS */}
+      {user && role === "admin" && (
+        <>
+          <li>
+            <NavLink to="/admin/dashboard">Admin Dashboard</NavLink>
+          </li>
+          <li>
+            <NavLink to="/admin/manage-users">Manage Users</NavLink>
+          </li>
+        </>
+      )}
+
+      {/* USER ONLY LINKS */}
+      {user && role === "user" && (
+        <>
+          <li>
+            <NavLink to="/addReview">Add Review</NavLink>
+          </li>
+          <li>
+            <NavLink to="/myReviews">My Reviews</NavLink>
+          </li>
+        </>
+      )}
     </nav>
   );
 
@@ -39,7 +61,6 @@ const Navbar = () => {
         <div className="navbar">
           {/* Navbar start */}
           <div className="navbar-start">
-            {/* Mobile menu */}
             <div className="dropdown">
               <div
                 tabIndex={0}
@@ -62,14 +83,13 @@ const Navbar = () => {
                 </svg>
               </div>
               <ul
-                tabIndex="-1"
+                tabIndex={0}
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
               >
                 {navLinks}
               </ul>
             </div>
 
-            {/* Logo */}
             <Link
               to="/"
               className="flex items-center justify-center gap-2 lg:text-2xl lg:font-bold text-xl font-semibold font-poppins text-primary"
@@ -87,7 +107,7 @@ const Navbar = () => {
           {/* Navbar end */}
           <div className="navbar-end gap-4">
             {loading ? (
-              <Loader /> // Shows spinner while checking login state
+              <Loader />
             ) : user ? (
               <div className="dropdown dropdown-end relative">
                 <div
@@ -98,31 +118,45 @@ const Navbar = () => {
                   <div className="w-10 rounded-full">
                     <img
                       alt="Profile"
-                      src={user.photoURL || userImage}
+                      src={user?.photoURL || userImage}
                       referrerPolicy="no-referrer"
                     />
                   </div>
                 </div>
 
                 <ul
-                  tabIndex="-1"
+                  tabIndex={0}
                   className="menu menu-sm dropdown-content bg-base-100 rounded-box shadow absolute right-0 top-full mt-2 w-52 z-50"
                 >
+                  <div className="px-4 py-2 font-semibold text-xs uppercase text-gray-500 border-b mb-1">
+                    {role} Menu
+                  </div>
+
+                  {/* Common Profile Link */}
                   <li>
-                    <Link to="/myReviews" className="justify-between">
-                      My Reviews
-                    </Link>
+                    <Link to="/dashboard">Dashboard</Link>
                   </li>
-                  <li>
-                    <Link to="/myFavorites" className="justify-between">
-                      My Favorites
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/addReview">Add Review</Link>
-                  </li>
-                  <li onClick={handleLogOut}>
-                    <button className="w-full text-left">Logout</button>
+
+                  {/* Conditional Dropdown Items */}
+                  {role === "admin" ? (
+                    <li>
+                      <Link to="/admin/reports">Review Reports</Link>
+                    </li>
+                  ) : (
+                    <>
+                      <li>
+                        <Link to="/myReviews">My Reviews</Link>
+                      </li>
+                      <li>
+                        <Link to="/myFavorites">My Favorites</Link>
+                      </li>
+                    </>
+                  )}
+
+                  <li className="mt-2 pt-2 border-t" onClick={handleLogOut}>
+                    <button className="w-full text-left text-error">
+                      Logout
+                    </button>
                   </li>
                 </ul>
               </div>

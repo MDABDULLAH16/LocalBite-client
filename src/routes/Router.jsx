@@ -12,6 +12,7 @@ import ReviewEdit from "../pages/ReviewEdit/ReviewEdit";
 import MyFavorites from "../pages/MyFavorites/MyFavorites";
 import NotFound from "../pages/NotFound/NotFound";
 import DashboardLayout from "../pages/Layout/DashboardLayout";
+import AboutUs from "../pages/AboutUs/AboutUs";
 
 const url = import.meta.env.VITE_BACKEND_URL;
 
@@ -23,6 +24,7 @@ export const router = createBrowserRouter([
       { index: true, Component: Home },
       { path: "login", Component: Login },
       { path: "register", Component: Register },
+      { path: "about-us", Component: AboutUs },
       {
         path: "reviews",
         loader: () => fetch(`${url}/reviews`),
